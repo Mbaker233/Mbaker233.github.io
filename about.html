@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About Mathew Baker and the tools behind Weather & Wisdom.">
+    <title>Weather & Wisdom | About</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-sky-50 text-slate-800 font-sans">
+    <nav class="bg-white shadow sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 text-2xl font-bold text-sky-600">❤️ Weather & Wisdom</a>
+            <div class="flex gap-8 text-lg">
+                <a href="index.html" class="hover:text-sky-600">Home</a>
+                <a href="forecast.html" class="hover:text-sky-600">Forecast</a>
+                <a href="converter.html" class="hover:text-sky-600">Converter</a>
+                <a href="quotes.html" class="hover:text-sky-600">Quotes</a>
+                <a href="about.html" class="hover:text-sky-600 font-medium">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-4xl mx-auto px-6 py-16">
+        <h1 class="text-5xl font-bold text-center mb-4">About Me</h1>
+        <p class="text-center text-xl text-slate-600 mb-16">Hi, I'm Mathew Baker — building better weather experiences one line of code at a time.</p>
+
+        <div class="bg-white rounded-3xl shadow-xl p-10 mb-16">
+            <h2 class="text-3xl font-semibold mb-6">Tech Stack Used</h2>
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b-2">
+                        <th class="py-4 pr-8">Tool</th>
+                        <th class="py-4">Purpose</th>
+                    </tr>
+                </thead>
+                <tbody class="text-lg">
+                    <tr class="border-b"><td class="py-4 pr-8 font-medium">HTML5 + Tailwind CSS</td><td class="py-4">Responsive design</td></tr>
+                    <tr class="border-b"><td class="py-4 pr-8 font-medium">JavaScript</td><td class="py-4">Temperature converter, moving heart, form handling</td></tr>
+                    <tr class="border-b"><td class="py-4 pr-8 font-medium">OpenWeatherMap API</td><td class="py-4">Live forecasts</td></tr>
+                    <tr class="border-b"><td class="py-4 pr-8 font-medium">zyBooks Quote API</td><td class="py-4">Daily inspiration</td></tr>
+                    <tr><td class="py-4 pr-8 font-medium">GitHub Pages</td><td class="py-4">Free hosting</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="bg-white rounded-3xl shadow-xl p-10">
+            <h2 class="text-3xl font-semibold mb-6 text-center">Get in Touch</h2>
+            <form id="contactForm" onsubmit="submitForm(event)" class="max-w-md mx-auto space-y-6">
+                <input type="text" placeholder="Your name" class="w-full p-4 border rounded-2xl focus:outline-none focus:border-sky-500" required>
+                <input type="email" placeholder="Your email" class="w-full p-4 border rounded-2xl focus:outline-none focus:border-sky-500" required>
+                <textarea placeholder="Your message" rows="5" class="w-full p-4 border rounded-2xl focus:outline-none focus:border-sky-500" required></textarea>
+                <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white py-5 rounded-2xl font-semibold text-xl">Send Message</button>
+            </form>
+            <p id="successMsg" class="hidden text-center text-green-600 font-semibold mt-6">✅ Message received! I'll reply soon.</p>
+        </div>
+    </div>
+
+    <script>
+        function submitForm(e) {
+            e.preventDefault();
+            document.getElementById("successMsg").classList.remove("hidden");
+            setTimeout(() => document.getElementById("contactForm").reset(), 1500);
+        }
+    </script>
+</body>
+</html>
