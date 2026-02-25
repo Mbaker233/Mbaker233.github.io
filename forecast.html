@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Compare weather in two cities side-by-side.">
+    <title>Weather & Wisdom | Forecast</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-sky-50 text-slate-800 font-sans">
+    <nav class="bg-white shadow sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 text-2xl font-bold text-sky-600">❤️ Weather & Wisdom</a>
+            <div class="flex gap-8 text-lg">
+                <a href="index.html" class="hover:text-sky-600">Home</a>
+                <a href="forecast.html" class="hover:text-sky-600 font-medium">Forecast</a>
+                <a href="converter.html" class="hover:text-sky-600">Converter</a>
+                <a href="quotes.html" class="hover:text-sky-600">Quotes</a>
+                <a href="about.html" class="hover:text-sky-600">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto px-6 py-12">
+        <h1 class="text-4xl font-bold text-center mb-10">Compare Two Cities</h1>
+        <div class="grid md:grid-cols-2 gap-10">
+            <!-- Left panel -->
+            <div>
+                <input id="city1" type="text" placeholder="First city (e.g. Denver)" class="w-full p-4 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-500 text-lg">
+                <button onclick="compareCities()" class="mt-4 w-full bg-sky-600 hover:bg-sky-700 text-white py-4 rounded-xl font-semibold text-lg">Compare Cities</button>
+                <div id="forecast1" class="mt-6"></div>
+            </div>
+            <!-- Right panel -->
+            <div>
+                <input id="city2" type="text" placeholder="Second city (e.g. Indianapolis)" class="w-full p-4 rounded-xl border border-slate-300 focus:outline-none focus:border-sky-500 text-lg">
+                <div id="forecast2" class="mt-6"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function compareCities() {
+            const c1 = document.getElementById("city1").value.trim();
+            const c2 = document.getElementById("city2").value.trim();
+            if (!c1 || !c2) { alert("Please enter both cities"); return; }
+
+            const key = "YOUR_OPENWEATHER_API_KEY_HERE"; // ← replace with a free key from openweathermap.org
+            const url1 = `https://api.openweathermap.org/data/2.5/weather?q=${c1}&units=imperial&appid=${key}`;
+            const url2 = `https://api.openweathermap.org/data/2.5/weather?q=${c2}&units=imperial&appid=${key}`;
+
+            const [res1, res2] = await Promise.all([fetch(url1), fetch(url2)]);
+            const data1 = await res1.json();
+            const data2 = await res2.json();
+
+            document.getElementById("forecast1").innerHTML = `<div class="bg-white p-6 rounded-2xl shadow"><h2 class="font-bold text-2xl">${data1.name}</h2><p class="text-6xl font-light">${Math.round(data1.main.temp)}°F</p><p>${data1.weather[0].description}</p></div>`;
+            document.getElementById("forecast2").innerHTML = `<div class="bg-white p-6 rounded-2xl shadow"><h2 class="font-bold text-2xl">${data2.name}</h2><p class="text-6xl font-light">${Math.round(data2.main.temp)}°F</p><p>${data2.weather[0].description}</p></div>`;
+        }
+    </script>
+</body>
+</html>
