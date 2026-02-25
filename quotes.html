@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Daily motivational quotes on love, humor, wisdom and more.">
+    <title>Weather & Wisdom | Quotes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-sky-50 text-slate-800 font-sans">
+    <nav class="bg-white shadow sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3 text-2xl font-bold text-sky-600">❤️ Weather & Wisdom</a>
+            <div class="flex gap-8 text-lg">
+                <a href="index.html" class="hover:text-sky-600">Home</a>
+                <a href="forecast.html" class="hover:text-sky-600">Forecast</a>
+                <a href="converter.html" class="hover:text-sky-600">Converter</a>
+                <a href="quotes.html" class="hover:text-sky-600 font-medium">Quotes</a>
+                <a href="about.html" class="hover:text-sky-600">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-2xl mx-auto px-6 py-12">
+        <h1 class="text-4xl font-bold text-center mb-8">Daily Wisdom</h1>
+        <div class="flex justify-center gap-6 mb-10">
+            <select id="topicSelection" class="px-6 py-4 border rounded-2xl text-lg">
+                <option value="love">Love</option>
+                <option value="motivational">Motivational</option>
+                <option value="wisdom">Wisdom</option>
+                <option value="humor">Humor</option>
+            </select>
+            <select id="countSelection" class="px-6 py-4 border rounded-2xl text-lg">
+                <option value="1">1 Quote</option>
+                <option value="2">2 Quotes</option>
+                <option value="3" selected>3 Quotes</option>
+                <option value="4">4 Quotes</option>
+                <option value="5">5 Quotes</option>
+            </select>
+            <button onclick="fetchQuotes()" class="px-10 bg-sky-600 hover:bg-sky-700 text-white rounded-2xl font-semibold text-lg">Fetch Quotes</button>
+        </div>
+        <div id="quotes" class="bg-white p-8 rounded-3xl shadow min-h-[300px]"></div>
+    </div>
+
+    <script>
+        function fetchQuotes() {
+            const topic = document.getElementById("topicSelection").value;
+            const count = document.getElementById("countSelection").value;
+            const xhr = new XMLHttpRequest();
+            xhr.responseType = "json";
+            xhr.addEventListener("load", responseReceivedHandler);
+            xhr.open("GET", `https://wp.zybooks.com/quotes.php?topic=${topic}&count=${count}`);
+            xhr.send();
+        }
+        function responseReceivedHandler() {
+            const div = document.getElementById("quotes");
+            if (this.response.error) {
+                div.innerHTML = `<p class="text-red-500 text-xl">${this.response.error}</p>`;
+            } else {
+                let html = "<ol class='space-y-6 text-lg'>";
+                for (let q of this.response) {
+                    html += `<li>"${q.quote}" — <span class="font-medium">${q.source}</span></li>`;
+                }
+                html += "</ol>";
+                div.innerHTML = html;
+            }
+        }
+    </script>
+</body>
+</html>
